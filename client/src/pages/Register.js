@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Register() {
   const [user, setUser] = useState({
@@ -7,9 +8,18 @@ function Register() {
     password: "",
   });
 
-  const register = () => {
-    console.log(user);
-  }
+  const register = async () => {
+    try {
+      const response = await axios.post("/api/users/register", user);
+      if (response.data.success) {
+        alert("User registered successfully!");
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col gap-3 w-96 p-6 shadow border border-gray-400">
@@ -28,12 +38,14 @@ function Register() {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <button className="primary" onClick={register}>Register</button>
+        <button className="primary" onClick={register}>
+          Register
+        </button>
       </div>
     </div>
   );
