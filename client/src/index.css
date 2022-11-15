@@ -1,3 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Imported from Google Fonts. All fonts for HTML elements are now the same. */
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+input {
+    height: 40px;
+    border: 2px solid rgba(128, 128, 128, 0.836);
+    padding: 10px 15px;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid black !important;
+}
+
+.primary {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 7px 0px;
+}
