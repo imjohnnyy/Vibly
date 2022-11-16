@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -12,7 +14,9 @@ function Login() {
     try {
       const response = await axios.post("/api/users/login", user);
       if (response.data.success) {
-        alert("User registered successfully!");
+        alert("User logged in successfully");
+        localStorage.setItem("token", response.data.data);
+        navigate("/");
       } else {
         alert(response.data.message);
       }
@@ -25,12 +29,6 @@ function Login() {
       <div className="flex flex-col gap-3 w-96 p-6 shadow border border-gray-400">
         <h1 className="text-3xl font-bold text-gray-700">Welcome back to Vibly</h1>
         <hr />
-        <input
-          type="text"
-          placeholder="Name"
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
-        />
         <input
           type="text"
           placeholder="Email"
@@ -46,6 +44,7 @@ function Login() {
         <button className="primary" onClick={login}>
           Login
         </button>
+        <Link to="/register" className="text-gray-600 underline"> Click Here to Register</Link>
       </div>
     </div>
   );
